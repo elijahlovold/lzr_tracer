@@ -1,0 +1,15 @@
+#ifndef _H_SERVO
+#define _H_SERVO 1
+
+#include <stdio.h>
+#include "pico/stdlib.h"
+
+#define SERVO_H 15  // GPIO connected to servo signal wire
+#define SERVO_V 14  // GPIO connected to servo signal wire
+
+#define PWM_WRAP 39062 // 50 Hz PWM period
+                       
+void init_servo(uint gpio);
+void set_servo_angle(uint gpio, float angle);
+
+#endif
