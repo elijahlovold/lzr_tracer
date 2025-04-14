@@ -15,6 +15,6 @@ using edge_t = gpio_irq_level;
 
 void init_joystick(float deadzone);
 float get_joystick_axis(bool axis);
-edge_t get_joystick_btn_state();
+edge_t get_joystick_btn();
 
 #endif

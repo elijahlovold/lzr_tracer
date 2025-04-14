@@ -27,7 +27,7 @@ float get_joystick_axis(bool axis) {
     return fabs(reading) > joystick_deadzone ? reading : 0; 
 }
 
-edge_t get_joystick_btn_state() {
+edge_t get_joystick_btn() {
     static bool button_pressed = 0;
 
     bool button_state = gpio_get(BUTTON_PIN);

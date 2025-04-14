@@ -13,9 +13,12 @@ pico_sdk_init()
 
 add_executable(lzr_cat)
 
+add_subdirectory(lib/no-OS-FatFS-SD-SPI-RPi-Pico/FatFs_SPI build)
+
 # Find all source files in the src directory
 file(GLOB_RECURSE SOURCES
     ${CMAKE_CURRENT_LIST_DIR}/src/*.cpp
+    ${CMAKE_CURRENT_LIST_DIR}/src/*.c
 )
 
 # Add the sources to the target
@@ -33,6 +36,7 @@ target_link_libraries(lzr_cat PUBLIC
     pico_stdlib 
     hardware_pwm
     hardware_adc
+    FatFs_SPI
 )
 
 pico_add_extra_outputs(lzr_cat)

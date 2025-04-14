@@ -4,8 +4,8 @@
 #include <stdio.h>
 #include "pico/stdlib.h"
 
-#define SERVO_H 15  // GPIO connected to servo signal wire
-#define SERVO_V 14  // GPIO connected to servo signal wire
+#define SERVO_X 15  // GPIO connected to servo signal wire
+#define SERVO_Y 14  // GPIO connected to servo signal wire
 
 #define PWM_WRAP 39062 // 50 Hz PWM period
                        
