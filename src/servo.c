@@ -1,7 +1,5 @@
 #include <servo.h>
-#include "pico/stdlib.h"
 #include "hardware/pwm.h"
-#include "hardware/adc.h"
 
 void init_servo(uint gpio) {
     gpio_set_function(gpio, GPIO_FUNC_PWM);

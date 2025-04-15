@@ -5,26 +5,23 @@
 extern "C" {
 #endif
 
-#define REC_LED 2 
+#include <utils.h>
 
-typedef unsigned char l_state;
-
-struct rec_pt {
-    float th_x;
-    float th_y;
-    l_state laser_on;
-};
+#define REC_LED 4 
+#define STR_LED 5 
 
 int init_sd();
 void close_sd();
 
 int start_recording(unsigned int sample_rate, unsigned char f_num); 
-int record_pt(const struct rec_pt* point, int num_points);
+int record_pt(const struct lzr_state* point, int num_points);
 int end_recording(); 
+uint8_t recording_active();
 
 int start_streaming(unsigned int* sample_rate, unsigned char f_num); 
-int stream_pt(struct rec_pt* point);
+int stream_pt(struct lzr_state* point);
 int end_streaming(); 
+uint8_t stream_active();
 
 // ---- file format ---- 
 // uint32_t SAMPLE_RATE

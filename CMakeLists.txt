@@ -17,7 +17,6 @@ add_subdirectory(lib/no-OS-FatFS-SD-SPI-RPi-Pico/FatFs_SPI build)
 
 # Find all source files in the src directory
 file(GLOB_RECURSE SOURCES
-    ${CMAKE_CURRENT_LIST_DIR}/src/*.cpp
     ${CMAKE_CURRENT_LIST_DIR}/src/*.c
 )
 

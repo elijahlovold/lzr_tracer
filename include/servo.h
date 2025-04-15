@@ -1,6 +1,10 @@
 #ifndef _H_SERVO
 #define _H_SERVO 1
 
+#ifdef __cplusplus
+extern "C" {
+#endif
+
 #include <stdio.h>
 #include "pico/stdlib.h"
 
@@ -11,5 +15,9 @@
                        
 void init_servo(uint gpio);
 void set_servo_angle(uint gpio, float angle);
+
+#ifdef __cplusplus
+}
+#endif
 
 #endif
