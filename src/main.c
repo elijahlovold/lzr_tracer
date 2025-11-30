@@ -9,7 +9,7 @@
 
 #define LZR_CTRL_PIN 16
 
-#define SENSE_X 1.5
+#define SENSE_X 2.5
 #define SENSE_Y 1.0
 
 #define SAMPLE_RATE 25
@@ -46,12 +46,12 @@ int main() {
     // while (!stdio_usb_connected()) sleep_ms(100);
 
     while (1) {
-        if (get_stream_btn() == GPIO_IRQ_EDGE_FALL) {
+        if (sd_enabled && get_stream_btn() == GPIO_IRQ_EDGE_FALL) {
             play_recording();
             continue;
         }
 
-        if (get_rec_btn() == GPIO_IRQ_EDGE_FALL) {
+        if (sd_enabled && get_rec_btn() == GPIO_IRQ_EDGE_FALL) {
             if (!recording_active()) start_recording(SAMPLE_RATE, 0);
             else end_recording();
         }
@@ -61,13 +61,13 @@ int main() {
             set_lzr_state(state.laser_on);
         }
 
-        float delta_x = get_joystick_axis(JOYSTICK_X_AXIS);
+        float delta_x = -get_joystick_axis(JOYSTICK_X_AXIS);
         float delta_y = get_joystick_axis(JOYSTICK_Y_AXIS);
 
         apply_delta(&state.th_x, delta_x, SERVO_X);
         apply_delta(&state.th_y, delta_y, SERVO_Y);
 
-        if (recording_active()) {
+        if (sd_enabled && recording_active()) {
             printf("Rec - X: %.3f, Y: %.3f, Lazer: %d\n", state.th_x, state.th_y, state.laser_on);
             record_pt(&state, 1);
         }
@@ -95,7 +95,13 @@ int play_recording() {
 
     l_state laser_on = 0;
     struct lzr_state state;
-    while(stream_pt(&state)) {
+    while (1) {
+        // loop recording
+        if (!stream_pt(&state)) {
+            end_streaming();
+            if (!start_streaming(&sample_rate, 0) || sample_rate == 0) return 0;
+            stream_pt(&state);
+        }
         if (laser_on != state.laser_on) {
             laser_on = state.laser_on;
             set_lzr_state(laser_on);
@@ -110,6 +116,8 @@ int play_recording() {
         sleep_us(delay_us);
     }
     end_streaming();
+    set_lzr_state(0);
+    return 1;
 }
 
 edge_t get_rec_btn() {

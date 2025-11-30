@@ -13,7 +13,7 @@ pico_sdk_init()
 
 add_executable(lzr_cat)
 
-add_subdirectory(lib/no-OS-FatFS-SD-SPI-RPi-Pico/FatFs_SPI build)
+add_subdirectory(lib/FatFS_SPI_Pico/FatFs_SPI build)
 
 # Find all source files in the src directory
 file(GLOB_RECURSE SOURCES
